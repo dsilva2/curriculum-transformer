@@ -40,12 +40,12 @@ export default function ChatbotPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [guidelines, setGuidelines] = useState("")
-  \
-  const [ollamaStatus, setOllamaStatus<{
+  
+  const [ollamaStatus, setOllamaStatus] = useState<{
     available: boolean;
-  models?: string[];
-  embeddingModel?: string;
-  completionModel?: string;
+    models?: string[];
+    embeddingModel?: string;
+    completionModel?: string;
   checking: boolean
 }
 >(

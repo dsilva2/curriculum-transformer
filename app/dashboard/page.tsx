@@ -235,12 +235,12 @@ export default function Dashboard() {
             </Alert>
           ) : apiStatus.available ? (
             <Alert className="mb-4" variant="default">
-              <CheckCircleIcon className="h-4 w-4" />
+              {/* <CheckCircleIcon className="h-4 w-4" />
               <AlertTitle>Groq API Connected</AlertTitle>
               <AlertDescription>
                 Using {apiStatus.currentModel} for text generation and HuggingFace for embeddings.
                 <div className="mt-2 text-sm">Available models: {apiStatus.models?.join(", ") || "None"}</div>
-              </AlertDescription>
+              </AlertDescription> */}
             </Alert>
           ) : (
             <Alert className="mb-4" variant="destructive">

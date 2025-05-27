@@ -55,7 +55,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src="/placeholder.svg?height=550&width=550"
+                src="https://play-lh.googleusercontent.com/pXFWipKGJaN4Jy3r3u_fly2qn7qEcNEPmg8GgLREB2BCrup_hqMFQAqygDrjLHCmKOs"
                 width={550}
                 height={550}
                 alt="Hero"
