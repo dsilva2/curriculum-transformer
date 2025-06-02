@@ -308,15 +308,15 @@ export default function ChatbotPage() {
         )}
 
         <div className="md:col-span-2">
-          <Card className="h-full flex flex-col">
-            <CardHeader>
+          <Card className="h-[calc(100vh-12rem)] flex flex-col">
+            <CardHeader className="flex-none">
               <CardTitle>Lesson Plan Assistant</CardTitle>
               <CardDescription>
                 Ask questions about lesson plans and their compliance with
                 Innova Schools Mexico guidelines
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 overflow-y-auto">
+            <CardContent className="flex-1 overflow-y-auto min-h-0">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <div
@@ -359,7 +359,7 @@ export default function ChatbotPage() {
                 <div ref={messagesEndRef} />
               </div>
             </CardContent>
-            <CardFooter className="border-t p-4">
+            <CardFooter className="flex-none border-t p-4">
               <form
                 className="flex w-full items-center space-x-2"
                 onSubmit={(e) => {
@@ -389,18 +389,6 @@ export default function ChatbotPage() {
         </div>
 
         <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Guidelines</CardTitle>
-              <CardDescription>
-                Enter Innova Schools Mexico guidelines for reference
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <GuidelinesForm onSubmit={handleGuidelinesSubmit} />
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
               <CardTitle>Suggested Questions</CardTitle>
@@ -460,6 +448,18 @@ export default function ChatbotPage() {
                   </Button>
                 </li>
               </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Guidelines</CardTitle>
+              <CardDescription>
+                Enter Innova Schools Mexico guidelines for reference
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <GuidelinesForm onSubmit={handleGuidelinesSubmit} />
             </CardContent>
           </Card>
         </div>
