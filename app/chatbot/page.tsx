@@ -4,15 +4,7 @@ import type React from "react";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Send,
-  Upload,
-  FileText,
-  Trash2,
-  InfoIcon,
-  AlertTriangleIcon,
-} from "lucide-react";
+import { ArrowLeft, Send, InfoIcon, AlertTriangleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,6 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Avatar } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { GuidelinesForm } from "@/components/guidelines-form";
 
 interface Message {
   role: "user" | "assistant" | "system";
@@ -35,26 +28,13 @@ interface Message {
   timestamp: Date;
 }
 
-interface UploadedFile {
-  id: string;
-  name: string;
-  content: string;
-  type: string;
-}
-
 export default function ChatbotPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "system",
-      content:
-        "Welcome to the Innova Schools Mexico Lesson Plan Assistant. Upload your lesson plans and ask questions about their compliance with guidelines.",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [guidelines, setGuidelines] = useState("");
+  const [materialTitle, setMaterialTitle] = useState("Untitled Material");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [groqStatus, setGroqStatus] = useState<{
     available: boolean;
@@ -67,8 +47,19 @@ export default function ChatbotPage() {
     checking: true,
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  // Initialize messages after component mount to avoid hydration mismatch
+  useEffect(() => {
+    setMessages([
+      {
+        role: "system",
+        content:
+          "Welcome to the Innova Schools Mexico Lesson Plan Assistant. Upload your lesson plans and ask questions about their compliance with guidelines.",
+        timestamp: new Date(),
+      },
+    ]);
+  }, []);
 
   // Check Groq status on component mount
   useEffect(() => {
@@ -148,6 +139,60 @@ export default function ChatbotPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleGuidelinesSubmit = async (data: {
+    guidelines: string;
+    materialTitle: string;
+  }) => {
+    setGuidelines(data.guidelines);
+    setMaterialTitle(data.materialTitle || "Untitled Material");
+
+    if (!data.guidelines) {
+      toast({
+        title: "Missing information",
+        description: "Please provide guidelines.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // Process guidelines with the analyze API
+      const formData = new FormData();
+      if (data.guidelines) {
+        formData.append("guidelines", data.guidelines);
+      }
+      formData.append("title", data.materialTitle || "Untitled Material");
+
+      const analyzeResponse = await fetch("/api/analyze", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!analyzeResponse.ok) {
+        throw new Error("Failed to process guidelines");
+      }
+
+      const analyzeData = await analyzeResponse.json();
+      console.log("Guidelines analysis complete:", analyzeData);
+
+      toast({
+        title: "Guidelines processed",
+        description: "Your guidelines have been successfully processed.",
+      });
+    } catch (error) {
+      console.error("Error processing guidelines:", error);
+      toast({
+        title: "Error",
+        description: "Failed to process guidelines. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
@@ -162,7 +207,7 @@ export default function ChatbotPage() {
     setIsLoading(true);
 
     try {
-      // Call the API with the message and files
+      // Call the API with the message and guidelines
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -170,7 +215,6 @@ export default function ChatbotPage() {
         },
         body: JSON.stringify({
           message: input,
-          files: uploadedFiles,
           guidelines,
         }),
       });
@@ -209,75 +253,6 @@ export default function ChatbotPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-
-    const files = Array.from(e.target.files);
-    const newUploadedFiles: UploadedFile[] = [];
-
-    for (const file of files) {
-      try {
-        const content = await readFileContent(file);
-        newUploadedFiles.push({
-          id: Math.random().toString(36).substring(7),
-          name: file.name,
-          content,
-          type: file.type,
-        });
-      } catch (error) {
-        console.error(`Error reading file ${file.name}:`, error);
-        toast({
-          title: "Error",
-          description: `Failed to read file ${file.name}`,
-          variant: "destructive",
-        });
-      }
-    }
-
-    setUploadedFiles((prev) => [...prev, ...newUploadedFiles]);
-
-    // Reset the file input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-
-    if (newUploadedFiles.length > 0) {
-      toast({
-        title: "Files uploaded",
-        description: `Successfully uploaded ${newUploadedFiles.length} lesson plan(s)`,
-      });
-
-      // Add a system message about the uploaded files
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "system",
-          content: `Uploaded ${
-            newUploadedFiles.length
-          } lesson plan(s): ${newUploadedFiles.map((f) => f.name).join(", ")}`,
-          timestamp: new Date(),
-        },
-      ]);
-    }
-  };
-
-  const removeFile = (id: string) => {
-    setUploadedFiles((prev) => prev.filter((file) => file.id !== id));
-    toast({
-      title: "File removed",
-      description: "The lesson plan has been removed",
-    });
-  };
-
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string);
-      reader.onerror = (e) => reject(e);
-      reader.readAsText(file);
-    });
   };
 
   return (
@@ -329,13 +304,7 @@ export default function ChatbotPage() {
             </AlertDescription>
           </Alert>
         ) : (
-          <Alert className="md:col-span-3 mb-0" variant="default">
-            <InfoIcon className="h-4 w-4" />
-            <AlertTitle>Groq Connected</AlertTitle>
-            <AlertDescription>
-              Using {groqStatus.currentModel} for responses.
-            </AlertDescription>
-          </Alert>
+          <></>
         )}
 
         <div className="md:col-span-2">
@@ -343,7 +312,7 @@ export default function ChatbotPage() {
             <CardHeader>
               <CardTitle>Lesson Plan Assistant</CardTitle>
               <CardDescription>
-                Ask questions about your lesson plans and their compliance with
+                Ask questions about lesson plans and their compliance with
                 Innova Schools Mexico guidelines
               </CardDescription>
             </CardHeader>
@@ -400,7 +369,7 @@ export default function ChatbotPage() {
               >
                 <Input
                   type="text"
-                  placeholder="Ask about your lesson plan's compliance with guidelines..."
+                  placeholder="Ask about lesson plan compliance with guidelines..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   disabled={isLoading}
@@ -422,84 +391,13 @@ export default function ChatbotPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Lesson Plans</CardTitle>
-              <CardDescription>
-                Upload your lesson plans for analysis
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="lesson-plan">Upload Lesson Plan</Label>
-                <div className="flex items-center gap-2">
-                  <Input
-                    id="lesson-plan"
-                    type="file"
-                    ref={fileInputRef}
-                    className="hidden"
-                    onChange={handleFileUpload}
-                    accept=".pdf,.docx,.txt,.doc"
-                    multiple
-                  />
-                  <Button
-                    variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full flex items-center gap-2"
-                  >
-                    <Upload className="h-4 w-4" />
-                    Upload Files
-                  </Button>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Upload PDF, DOCX, or TXT files
-                </p>
-              </div>
-
-              {uploadedFiles.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">
-                    Uploaded Lesson Plans:
-                  </h4>
-                  <ul className="space-y-2">
-                    {uploadedFiles.map((file) => (
-                      <li
-                        key={file.id}
-                        className="flex items-center justify-between rounded-lg border p-2"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <FileText className="h-4 w-4 text-gray-500" />
-                          <span className="text-sm">{file.name}</span>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFile(file.id)}
-                          className="h-8 w-8 p-0"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                          <span className="sr-only">Remove file</span>
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
               <CardTitle>Guidelines</CardTitle>
               <CardDescription>
                 Enter Innova Schools Mexico guidelines for reference
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Textarea
-                placeholder="Enter Innova Schools Mexico guidelines here..."
-                value={guidelines}
-                onChange={(e) => setGuidelines(e.target.value)}
-                className="min-h-[150px]"
-              />
+              <GuidelinesForm onSubmit={handleGuidelinesSubmit} />
             </CardContent>
           </Card>
 

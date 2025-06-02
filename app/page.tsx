@@ -220,7 +220,7 @@ export default function Home() {
                 </ul>
               </div>
               <img
-                src="/placeholder.svg?height=400&width=400"
+                src="https://play-lh.googleusercontent.com/pXFWipKGJaN4Jy3r3u_fly2qn7qEcNEPmg8GgLREB2BCrup_hqMFQAqygDrjLHCmKOs"
                 width={400}
                 height={400}
                 alt="How it works"
