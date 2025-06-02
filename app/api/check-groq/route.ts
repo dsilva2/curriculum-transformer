@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server"
-import { isGroqAvailable, getAvailableModels } from "@/lib/groq-utils"
+import { NextResponse } from "next/server";
+import { isGroqAvailable, getAvailableModels } from "@/lib/groq-utils";
 
 export async function GET() {
   try {
     // Check if API key exists
-    const hasApiKey = !!process.env.GROQ_API_KEY
+    const hasApiKey = !!process.env.GROQ_API_KEY;
 
     if (!hasApiKey) {
       return NextResponse.json({
@@ -14,11 +14,13 @@ export async function GET() {
           hasApiKey: false,
           keyFormat: "N/A",
         },
-      })
+      });
     }
 
     // Check API key format
-    const keyFormat = process.env.GROQ_API_KEY?.startsWith("gsk_") ? "valid" : "invalid"
+    const keyFormat = process.env.GROQ_API_KEY?.startsWith("gsk_")
+      ? "valid"
+      : "invalid";
 
     if (keyFormat === "invalid") {
       return NextResponse.json({
@@ -28,14 +30,14 @@ export async function GET() {
           hasApiKey: true,
           keyFormat: "invalid",
         },
-      })
+      });
     }
 
-    const available = await isGroqAvailable()
+    const available = await isGroqAvailable();
 
-    let models: string[] = []
+    let models: string[] = [];
     if (available) {
-      models = await getAvailableModels()
+      models = await getAvailableModels();
     }
 
     return NextResponse.json({
@@ -48,19 +50,22 @@ export async function GET() {
         keyFormat: "valid",
         keyLength: process.env.GROQ_API_KEY?.length || 0,
       },
-    })
+    });
   } catch (error) {
-    console.error("Error checking Groq:", error)
+    console.error("Error checking Groq:", error);
     return NextResponse.json(
       {
         available: false,
-        error: `Failed to check Groq availability: ${error instanceof Error ? error.message : "Unknown error"}`,
+        error: `Failed to check Groq availability: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
         debug: {
           hasApiKey: !!process.env.GROQ_API_KEY,
-          errorType: error instanceof Error ? error.constructor.name : "Unknown",
+          errorType:
+            error instanceof Error ? error.constructor.name : "Unknown",
         },
       },
-      { status: 500 },
-    )
+      { status: 500 }
+    );
   }
 }
