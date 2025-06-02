@@ -146,32 +146,31 @@ export default function Home() {
                 solutions
               </p>
             </div>
-            <div className="mx-auto max-w-4xl space-y-24">
-              {/* Original HMWs */}
-              <div className="relative">
-                <div className="absolute -left-4 top-0 h-full w-1 bg-blue-200 rounded-full"></div>
-                <div className="pl-8">
-                  <h3 className="text-2xl font-semibold mb-8 text-blue-600">
+            <div className="w-full px-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                {/* Original HMWs */}
+                <div className="relative">
+                  <h3 className="text-xl font-semibold mb-6 text-blue-600">
                     Original HMWs
                   </h3>
-                  <ul className="space-y-8">
-                    <li className="flex items-start gap-6">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
+                  <ul className="space-y-6">
+                    <li className="flex items-start gap-4">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
                         1
                       </div>
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-lg">
+                        <p className="text-gray-700 dark:text-gray-300 text-base">
                           How might we reimagine teacher training to align to
                           innovative pedagogies?
                         </p>
                       </div>
                     </li>
-                    <li className="flex items-start gap-6">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
+                    <li className="flex items-start gap-4">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
                         2
                       </div>
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-lg">
+                        <p className="text-gray-700 dark:text-gray-300 text-base">
                           How might we ensure families understand the merits of
                           innovative pedagogies and engage with the Innova
                           School model?
@@ -180,69 +179,66 @@ export default function Home() {
                     </li>
                   </ul>
                 </div>
-              </div>
 
-              {/* What We Learned */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-blue-100">
-                <h3 className="text-2xl font-semibold mb-8 text-center text-blue-600">
-                  What We Learned
-                </h3>
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
-                      1
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      Teachers are overwhelmed by increasing workloads and
-                      responsibilities.
-                    </p>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
-                      2
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      Communication issues arise due to lack of effective parent
-                      engagement.
-                    </p>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
-                      3
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      New pedagogical model presents challenges in training and
-                      implementation.
-                    </p>
-                  </li>
-                </ul>
-              </div>
+                {/* What We Learned */}
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-blue-100">
+                  <h3 className="text-xl font-semibold mb-6 text-center text-blue-600">
+                    What We Learned
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold text-sm">
+                        1
+                      </div>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm">
+                        Teachers are overwhelmed by increasing workloads and
+                        responsibilities.
+                      </p>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold text-sm">
+                        2
+                      </div>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm">
+                        Communication issues arise due to lack of effective
+                        parent engagement.
+                      </p>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold text-sm">
+                        3
+                      </div>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm">
+                        New pedagogical model presents challenges in training
+                        and implementation.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
 
-              {/* Transformed HMWs */}
-              <div className="relative">
-                <div className="absolute -right-4 top-0 h-full w-1 bg-blue-200 rounded-full"></div>
-                <div className="pr-8">
-                  <h3 className="text-2xl font-semibold mb-8 text-blue-600 text-right">
+                {/* Transformed HMWs */}
+                <div className="relative">
+                  <h3 className="text-xl font-semibold mb-6 text-blue-600">
                     Transformed HMWs
                   </h3>
-                  <ul className="space-y-8">
-                    <li className="flex items-start gap-6">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
+                  <ul className="space-y-6">
+                    <li className="flex items-start gap-4">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
                         1
                       </div>
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-lg">
+                        <p className="text-gray-700 dark:text-gray-300 text-base">
                           How might we decrease teachers' workload and equip
                           them with tools to implement Innova's curriculum?
                         </p>
                       </div>
                     </li>
-                    <li className="flex items-start gap-6">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
+                    <li className="flex items-start gap-4">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-semibold">
                         2
                       </div>
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-lg">
+                        <p className="text-gray-700 dark:text-gray-300 text-base">
                           How might we help teachers communicate the value of
                           Innova's curriculum to parents?
                         </p>
