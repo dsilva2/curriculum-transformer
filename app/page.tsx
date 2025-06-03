@@ -330,6 +330,15 @@ export default function Home() {
                   <p className="text-gray-500 dark:text-gray-400">
                     Informal meet-ups to test parent engagement.
                   </p>
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href="https://www.canva.com/design/DAGo3wvKXBs/nNuh5sX9gIpQDt2OmR2pNA/edit"
+                      className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Learn More About Farmers' Market
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Event Step 2 */}
@@ -364,6 +373,15 @@ export default function Home() {
                   <p className="text-gray-500 dark:text-gray-400">
                     Structured demo of student work and curriculum talk.
                   </p>
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href="https://www.canva.com/design/DAGo32C58dA/p2OJeAqOIgdA9KIUrHkRIQ/edit"
+                      className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Learn More About Parent-Teacher Night
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -496,6 +514,15 @@ export default function Home() {
                         </p>
                       </li>
                     </ul>
+                    <div className="flex justify-center mt-6">
+                      <Link
+                        href="https://www.canva.com/design/DAGo33Bjw3I/pZL7TiGANG8sDHNXwhboRA/edit"
+                        className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Learn More About Alumni Stories
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
