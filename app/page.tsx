@@ -408,6 +408,15 @@ export default function Home() {
                     Use AI to translate curriculum and learning to parents with
                     frequent updates.
                   </p>
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href="https://docs.google.com/document/d/1JlgOjxsodAU_iEFXe4cv6lh1z4JGCgUEDFpVgbQP5XU/edit?tab=t.0#heading=h.spyln1fbrmpn"
+                      className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Learn More About Teacher Curriculum Posts
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Digital Step 2 */}
@@ -423,6 +432,15 @@ export default function Home() {
                   <p className="text-gray-500 dark:text-gray-400">
                     Sent to parents to surface what families really want to see.
                   </p>
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href="https://docs.google.com/document/d/1JlgOjxsodAU_iEFXe4cv6lh1z4JGCgUEDFpVgbQP5XU/edit?tab=t.0#heading=h.ruzrpy8u0ykr"
+                      className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Learn More About Student Blog
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Digital Step 3 */}
@@ -441,6 +459,15 @@ export default function Home() {
                     Students build projects, producing take-home artifacts for
                     parents; frees teacher planning time.
                   </p>
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href="https://docs.google.com/document/d/1JlgOjxsodAU_iEFXe4cv6lh1z4JGCgUEDFpVgbQP5XU/edit?tab=t.0#heading=h.650qb0mtmir5"
+                      className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Learn More About Student AI Hour
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
