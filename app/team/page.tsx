@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
       "M.A. Sustainability Science and Practice ",
     ],
     image: "/team/hannah-headshot.jpeg",
-    description: "Description for team member 1",
+    description: "",
   },
   {
     name: "Antonio Hernandez",
@@ -43,19 +43,19 @@ const teamMembers: TeamMember[] = [
       "M.A. Policy, Organization, and Leadership Studies",
     ],
     image: "/team/antonio-headshot.jpeg",
-    description: "Description for team member 2",
+    description: "",
   },
   {
     name: "Marla Ross",
     roles: ["M.S. Learning Design and Technology"],
     image: "/team/marla-headshot.jpeg",
-    description: "Description for team member 3",
+    description: "",
   },
   {
     name: "Drew Silva",
     roles: ["M.S. Computer Science"],
     image: "/team/drew-headshot.jpeg",
-    description: "Description for team member 4",
+    description: "",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function TeamPage() {
               Our Team
             </h1>
             <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              Meet the team behind the Curriculum Transformation project
+              Meet the team working with Innova Schools MX
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
