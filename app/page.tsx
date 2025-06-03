@@ -490,7 +490,7 @@ export default function Home() {
                     <p className="text-gray-700 dark:text-gray-300">
                       Our alumni pathway initiative allows parents and teachers
                       to see examples of the journeys that students will take in
-                      their education. This would be incorporatede into their
+                      their education. This would be incorporated into their
                       professional development experience to help them see that
                       the curriculum is effective. This platform works by:
                     </p>
